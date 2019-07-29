@@ -2,9 +2,7 @@
 venv/
 
 # PyCharm
-.idea/misc.xml
-.idea/deployment.xml
-.idea/dictionaries/
+.idea/
 
 # PyCharm Plugins
 .idea/libraries/R_User_Library.xml

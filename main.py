@@ -1,6 +1,7 @@
 import sys
 import time
 import typing
+import datetime
 
 __author__ = "Bojan Potočnik"
 
@@ -46,7 +47,8 @@ class SeggerRTTListener:
                 break
             time.sleep(0.01)
         try:
-            return rx_data.decode('utf-8')
+            temp_str = rx_data.decode('utf-8')
+            return temp_str
         except UnicodeDecodeError as e:
             print(f"While decoding {rx_data}: {e}", file=sys.stderr)
             return rx_data.decode('utf-8', errors='replace')
@@ -82,7 +84,9 @@ class SeggerRTTListener:
 def main() -> None:
     with SeggerRTTListener() as listener:
         for line in listener:
-            print(line, end="")
+            tmp_line = line.replace('\r\r', '\r')  # That seems to happen since Nordic SDK v15
+            print('\t' + str(datetime.datetime.now().time()))
+            print(tmp_line, end="")
 
 
 if __name__ == '__main__':
